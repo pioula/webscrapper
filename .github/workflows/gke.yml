@@ -46,7 +46,7 @@ jobs:
       run: |-
         docker build \
           --tag "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.0" \
-          ../webscrapper-front
+          ./webscrapper-front/
 
     # Push the Docker image to Google Container Registry
     - name: Publish
