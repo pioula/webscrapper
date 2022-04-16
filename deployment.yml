@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: "webscrapper-front-sha256-1"
-        image: "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front@sha256:c85d5b3f57b42168db3af77934a39d6c3ff9446beb91a6adf4abeee8ef42a777"
+        image: "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.0"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
