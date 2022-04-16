@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: webscrapper-cluster
-  GKE_ZONE: europe-central2-a
+  GKE_ZONE: europe-central2
   DEPLOYMENT_NAME: webscrapper-deploy
 
 jobs:
