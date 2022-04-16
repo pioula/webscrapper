@@ -42,5 +42,5 @@ jobs:
     # Deploy sample image to the GKE cluster
     - name: Deploy
       run: |-
-        docker push europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front
+        docker push europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.0
 
