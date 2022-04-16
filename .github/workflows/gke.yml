@@ -30,7 +30,7 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         workload_identity_provider: 'projects/$PROJECT_ID/locations/global/workloadIdentityPools/webscrapper-github-pool/providers/webscrapper-github-provider'
-        service_account: '${{ secrets.GCP_SE_ACC }}'
+        service_account: 'webscrapper-service@$PROJECT_ID.iam.gserviceaccount.com '
     
     # Setup gcloud CLI
     - name: Set up Cloud SDK
