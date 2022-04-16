@@ -1,0 +1,46 @@
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "webscrapper"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "webscrapper-deploy"
+  namespace: "webscrapper"
+  labels:
+    app: "webscrapper-deploy"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "webscrapper-deploy"
+  template:
+    metadata:
+      labels:
+        app: "webscrapper-deploy"
+    spec:
+      containers:
+      - name: "webscrapper-front-sha256-1"
+        image: "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front@sha256:de2d2f7d9dbc73403e346ff764a9243f1ee3afb0467fa20b48c67723d8e9eda2"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "webscrapper-deploy-hpa-xa4q"
+  namespace: "webscrapper"
+  labels:
+    app: "webscrapper-deploy"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "webscrapper-deploy"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
