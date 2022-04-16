@@ -42,7 +42,5 @@ jobs:
     # Deploy sample image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f deployment.yml
-        kubectl rollout status deployment/webscrapper-deploy
-        kubectl get services -o wide
+        docker push europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front
 
