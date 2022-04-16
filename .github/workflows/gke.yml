@@ -48,6 +48,10 @@ jobs:
           --tag "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.0" \
           ./webscrapper-front/
 
+    - name: Giving access to zone
+      run: |-
+        gcloud auth configure-docker europe-central2-docker.pkg.dev
+
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
