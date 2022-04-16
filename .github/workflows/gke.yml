@@ -43,6 +43,5 @@ jobs:
     - name: Deploy
       run: |-
         kubectl apply -f deployment.yml
-        kubectl rollout status deployment/webscrapper-deploy
         kubectl get services -o wide
 
