@@ -11,6 +11,7 @@ env:
   GKE_ZONE: europe-central2
   DEPLOYMENT_NAME: webscrapper-deploy
   NEW_IMAGE: europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:${{github.run_number}}
+  SERVICE_NAME: webscrapper-front
 
 jobs:
   setup-and-deploy:
@@ -31,7 +32,7 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         workload_identity_provider: 'projects/886237649633/locations/global/workloadIdentityPools/webscrapper-github-pool/providers/webscrapper-github-provider'
-        service_account: 'webscrapper-service@webscrapper-71830.iam.gserviceaccount.com'
+        service_account: 'webscrapper-service@$PROJECT_ID.iam.gserviceaccount.com'
     
     # Setup gcloud CLI
     - name: Set up Cloud SDK
@@ -40,7 +41,7 @@ jobs:
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get gcloud credentials
       run: |-
-        gcloud container clusters get-credentials webscrapper-cluster --zone europe-central2
+        gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE
 
     # Build the Docker image
     - name: Build
@@ -51,7 +52,7 @@ jobs:
 
     - name: Giving access to zone
       run: |-
-        gcloud auth configure-docker europe-central2-docker.pkg.dev
+        gcloud auth configure-docker $GKE_ZONE-docker.pkg.dev
 
     # Push the Docker image to Google Container Registry
     - name: Publish
@@ -61,7 +62,7 @@ jobs:
     # Deploy sample image to the GKE cluster
     - name: Deploy
       run: |-
-        kustomize edit set image europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front=$NEW_IMAGE
+        kustomize edit set image $SERVICE_NAME=$NEW_IMAGE
         kubectl apply -k .
         kubectl get services -o wide
 
