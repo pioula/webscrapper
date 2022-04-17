@@ -1,0 +1,8 @@
+resources:
+- deployment.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front
+  newName: europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front
+  newTag: v1.0.3

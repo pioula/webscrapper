@@ -44,7 +44,7 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.1" \
+          --tag "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.3" \
           ./webscrapper-front/
 
     - name: Giving access to zone
@@ -54,11 +54,12 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker push "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.1"
+        docker push "europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.3"
 
     # Deploy sample image to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f deployment.yml
+        kustomize edit set image europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front=europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-front:v1.0.3
+        kubectl apply -k .
         kubectl get services -o wide
 
