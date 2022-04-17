@@ -39,7 +39,7 @@ jobs:
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get gcloud credentials
-    - run: |-
+      run: |-
         gcloud container clusters get-credentials webscrapper-cluster --zone europe-central2
 
     # Build the Docker image
