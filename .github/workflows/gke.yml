@@ -32,7 +32,7 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         workload_identity_provider: 'projects/886237649633/locations/global/workloadIdentityPools/webscrapper-github-pool/providers/webscrapper-github-provider'
-        service_account: 'webscrapper-service@$PROJECT_ID.iam.gserviceaccount.com'
+        service_account: 'webscrapper-service@"$PROJECT_ID".iam.gserviceaccount.com'
     
     # Setup gcloud CLI
     - name: Set up Cloud SDK
@@ -41,7 +41,7 @@ jobs:
     # Get the GKE credentials so we can deploy to the cluster
     - name: Get gcloud credentials
       run: |-
-        gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE
+        gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
 
     # Build the Docker image
     - name: Build
