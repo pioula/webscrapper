@@ -1,0 +1,14 @@
+{
+  "name": "webscrapper-scrapper",
+  "version": "1.0.0",
+  "description": "scrapper",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "nodemon index.mjs"
+  },
+  "author": "Piotr Ulanowski",
+  "license": "ISC",
+  "dependencies": {
+    "pg-promise": "^10.11.1"
+  }
+}
