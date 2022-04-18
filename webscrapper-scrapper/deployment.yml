@@ -44,13 +44,13 @@ spec:
               name: db-pages
               key: database
       - name: cloud-sql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.28.0 # make sure the use the latest versio
+        image: gcr.io/cloudsql-docker/gce-proxy:1.28.0 # make sure the use the latest version 
         command:
           - "/cloud_sql_proxy"
           - "-log_debug_stdout"
           - "-instances=pages-scrapper:europe-central2=tcp:0.0.0.0:5432"
         securityContext:
-          runAsNonRoot: "true"
+          runAsNonRoot: true
 
 ---
 apiVersion: "autoscaling/v2beta1"
