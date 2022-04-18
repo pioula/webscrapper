@@ -7,19 +7,19 @@ metadata:
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "webscrapper-deploy"
+  name: "webscrapper-front"
   namespace: "webscrapper"
   labels:
-    app: "webscrapper-deploy"
+    app: "webscrapper-front"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "webscrapper-deploy"
+      app: "webscrapper-front"
   template:
     metadata:
       labels:
-        app: "webscrapper-deploy"
+        app: "webscrapper-front"
     spec:
       containers:
       - name: "webscrapper-front-sha256-1"
@@ -28,14 +28,14 @@ spec:
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "webscrapper-deploy-hpa-xa4q"
+  name: "webscrapper-front-hpa-xa4q"
   namespace: "webscrapper"
   labels:
-    app: "webscrapper-deploy"
+    app: "webscrapper-front"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "webscrapper-deploy"
+    name: "webscrapper-front"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
