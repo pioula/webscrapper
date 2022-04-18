@@ -41,6 +41,8 @@ spec:
             secretKeyRef:
               name: db-pages
               key: database
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.28.0 # make sure the use the latest version
 
 ---
 apiVersion: "autoscaling/v2beta1"
