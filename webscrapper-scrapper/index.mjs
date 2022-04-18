@@ -1,23 +1,11 @@
-import pgPromise from 'pg-promise';
+import express from 'express';
 
-const pgp = pgPromise();
+const app = express();
+const port = 3001;
 
-const config = {
-    host: 'localhost',
-    port: 5432,
-    database: 'scrapper-pages',
-    user: 'postgres',
-    password: 'secretsPassword123',
-    max: 30
-}
+app.use((req, res) => {
+    res.status(200).send('<div>Hi!</div>');
+    res.end();
+});
 
-const db = pgp(config);
-
-console.log(db);
-console.log('lool');
-
-db.any('SELECT * FROM pages')
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
-
-console.log('lol')
+app.listen(port);
