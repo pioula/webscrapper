@@ -1,0 +1,46 @@
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "webscrapper"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "webscrapper-scrapper"
+  namespace: "webscrapper"
+  labels:
+    app: "webscrapper-scrapper"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "webscrapper-scrapper"
+  template:
+    metadata:
+      labels:
+        app: "webscrapper-scrapper"
+    spec:
+      containers:
+      - name: "webscrapper-scrapper-sha256-1"
+        image: "webscrapper-scrapper"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "webscrapper-scrapper-hpa-xa4q"
+  namespace: "webscrapper"
+  labels:
+    app: "webscrapper-scrapper"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "webscrapper-scrapper"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80

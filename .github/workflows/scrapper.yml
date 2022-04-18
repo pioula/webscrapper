@@ -1,0 +1,69 @@
+name: Deploy webscrapper to gke
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - webscrapper-scrapper/**
+
+env:
+  PROJECT_ID: webscrapper-71830
+  GKE_CLUSTER: webscrapper-cluster
+  GKE_ZONE: europe-central2
+  DEPLOYMENT_NAME: webscrapper-scrapper
+  NEW_IMAGE: europe-central2-docker.pkg.dev/webscrapper-71830/webscrapper-repo/webscrapper-scrapper:${{github.run_number}}
+
+jobs:
+  setup-and-deploy:
+    name: Setup and Deploy
+    runs-on: ubuntu-latest
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        workload_identity_provider: 'projects/886237649633/locations/global/workloadIdentityPools/webscrapper-github-pool/providers/webscrapper-github-provider'
+        service_account: 'webscrapper-service@webscrapper-71830.iam.gserviceaccount.com'
+    
+    # Setup gcloud CLI
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - name: Get gcloud credentials
+      run: |-
+        gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+
+    # Build the Docker image
+    - name: Build
+      run: |-
+        docker build \
+          --tag "$NEW_IMAGE" \
+          ./webscrapper-scrapper/
+
+    - name: Giving access to zone
+      run: |-
+        gcloud auth configure-docker $GKE_ZONE-docker.pkg.dev
+
+    # Push the Docker image to Google Container Registry
+    - name: Publish
+      run: |-
+        docker push "$NEW_IMAGE"
+
+    # Deploy sample image to the GKE cluster
+    - name: Deploy
+      run: |-
+        (cd webscrapper-scrapper && kustomize edit set image $DEPLOYMENT_NAME=$NEW_IMAGE)
+        kubectl apply -k ./webscrapper-scrapper/
+        kubectl get services -o wide
+
