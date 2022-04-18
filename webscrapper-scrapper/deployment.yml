@@ -22,6 +22,8 @@ spec:
         app: "webscrapper-scrapper"
     spec:
       serviceAccountName: pages-db-ksacc
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
       containers:
       - name: "webscrapper-scrapper-sha256-1"
         image: "webscrapper-scrapper"
@@ -48,7 +50,7 @@ spec:
           - "-log_debug_stdout"
           - "-instances=pages-scrapper:europe-central2=tcp:0.0.0.0:5432"
         securityContext:
-          runAsNonRoot: true
+          runAsNonRoot: "true"
 
 ---
 apiVersion: "autoscaling/v2beta1"
