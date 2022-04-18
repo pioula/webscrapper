@@ -49,10 +49,6 @@ spec:
           - "-instances=pages-scrapper=tcp:5432"
         securityContext:
           runAsNonRoot: true
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu:    "1"
 
 ---
 apiVersion: "autoscaling/v2beta1"
