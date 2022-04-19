@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
+    "firebase": "^9.6.11",
     "pg-promise": "^10.11.1"
   }
 }
