@@ -24,13 +24,6 @@ spec:
       containers:
       - name: "webscrapper-front-sha256-1"
         image: "webscrapper-front"
-        resources:
-          limits:
-            memory: 512Mi
-            cpu: "1"
-          requests:
-            memory: 256Mi
-            cpu: "0.2"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
