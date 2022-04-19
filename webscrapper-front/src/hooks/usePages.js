@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 //const path = 'http://localhost:3001/pages';
-const path = 'http://34.118.117.222:3001/pages';
+const path = 'http://10.100.0.182:3001/pages';
 
 const GET = {
     method: 'GET',
