@@ -34,8 +34,8 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res) => {
-    let list = result.reduce((prev, cur) => prev + `<div>${cur.page}</div>`, '');
-    res.status(200).send(list);
+    //let list = result.reduce((prev, cur) => prev + `<div>${cur.page}</div>`, '');
+    res.status(200).send(process.env.API_KEY);
     res.end();
 });
 

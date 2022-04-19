@@ -24,6 +24,12 @@ spec:
       containers:
       - name: "webscrapper-scrapper-sha256-1"
         image: "webscrapper-scrapper"
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: apiKey
 
 ---
 apiVersion: "autoscaling/v2beta1"
