@@ -21,9 +21,6 @@ spec:
       labels:
         app: "webscrapper-scrapper"
     spec:
-      serviceAccountName: pages-db-ksacc
-      nodeSelector:
-        iam.gke.io/gke-metadata-server-enabled: "true"
       containers:
       - name: "webscrapper-scrapper-sha256-1"
         image: "webscrapper-scrapper"
