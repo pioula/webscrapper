@@ -27,30 +27,6 @@ spec:
       containers:
       - name: "webscrapper-scrapper-sha256-1"
         image: "webscrapper-scrapper"
-        env:
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: db-pages
-              key: username
-        - name: DB_PASS
-          valueFrom:
-            secretKeyRef:
-              name: db-pages
-              key: password
-        - name: DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: db-pages
-              key: database
-      - name: cloud-sql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.28.0 # make sure the use the latest version 
-        command:
-          - "/cloud_sql_proxy"
-          - "-log_debug_stdout"
-          - "-instances=pages-scrapper:europe-central2=tcp:0.0.0.0:5432"
-        securityContext:
-          runAsNonRoot: true
 
 ---
 apiVersion: "autoscaling/v2beta1"
