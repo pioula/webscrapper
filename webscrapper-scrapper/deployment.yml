@@ -30,6 +30,36 @@ spec:
             secretKeyRef:
               name: firebase-db
               key: apiKey
+        - name: APP_ID
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: appId
+        - name: AUTH_DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: authDomain
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: databaseUrl
+        - name: MESSAGING_SENDER_ID
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: messagingSenderId
+        - name: PROJECT_ID
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: projectId
+        - name: STORAGE_BUCKET
+          valueFrom:
+            secretKeyRef:
+              name: firebase-db
+              key: storageBucket
 
 ---
 apiVersion: "autoscaling/v2beta1"
