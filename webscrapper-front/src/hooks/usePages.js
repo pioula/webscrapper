@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 //const path = 'http://localhost:3001/pages';
-const path = 'http://webscrapper-scrapper-service.webscrapper.svc.cluster.local:3001/pages';
+const path = 'http://34.116.218.5:3001/pages';
 
 const GET = {
     method: 'GET',
